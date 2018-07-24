@@ -29,6 +29,10 @@ public final class QueryUtils {
      * Tag for the log messages
      */
     public static final String LOG_TAG = QueryUtils.class.getSimpleName();
+    private static final int readTimeoutMS = 10000;
+    private static final int connectMS = 15000;
+    private static final String RESPONSE = "response";
+    private static final String RESULTS= "results";
 
     /**
      * Create a private constructor because no one should ever create a {@link QueryUtils} object.
@@ -87,14 +91,14 @@ public final class QueryUtils {
         InputStream inputStream = null;
         try {
             articleURLConnection = (HttpURLConnection) articleURL.openConnection();
-            articleURLConnection.setReadTimeout(10000 /* milliseconds */);
-            articleURLConnection.setConnectTimeout(15000 /* milliseconds */);
+            articleURLConnection.setReadTimeout(readTimeoutMS /* milliseconds */);
+            articleURLConnection.setConnectTimeout(connectMS /* milliseconds */);
             articleURLConnection.setRequestMethod("GET");
             articleURLConnection.connect();
 
             // If the request was successful (response code 200),
             // then read the input stream and parse the response.
-            if (articleURLConnection.getResponseCode() == 200) {
+            if (articleURLConnection.getResponseCode() == articleURLConnection.HTTP_OK) {
                 inputStream = articleURLConnection.getInputStream();
                 jsonResponse = readFromStream(inputStream);
             } else {
@@ -154,8 +158,8 @@ public final class QueryUtils {
         // try to parse API results within the object and array
         try {
             JSONObject baseJsonResponse = new JSONObject(articleJSON);
-            JSONObject responseJsonResponse = baseJsonResponse.getJSONObject("response");
-            JSONArray resultsArray = responseJsonResponse.getJSONArray("results");
+            JSONObject responseJsonResponse = baseJsonResponse.getJSONObject(RESPONSE);
+            JSONArray resultsArray = responseJsonResponse.getJSONArray(RESULTS);
 
             // If there are results in the results array
             if (resultsArray.length() > 0) {

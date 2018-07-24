@@ -94,9 +94,11 @@ public class MainActivity  extends AppCompatActivity
                 // Create a new intent to open the {@link applicable activity}
                 Intent myIntent = new Intent(browserIntent);
 
-                // Start the new activity
-                startActivity(myIntent);
-
+                //In case the devices does not have a browser, check...
+                if (myIntent.resolveActivity(getPackageManager()) != null) {
+                    // Start the new activity
+                    startActivity(myIntent);
+                }
             }
         }); // END setOnItemClickListener
     }

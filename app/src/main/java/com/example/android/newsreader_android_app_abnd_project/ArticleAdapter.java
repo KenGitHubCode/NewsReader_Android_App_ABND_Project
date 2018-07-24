@@ -50,44 +50,47 @@ class ArticleAdapter extends ArrayAdapter<Article> {
                     R.layout.list_item, parent, false);
         }
 
+        //populate View holders /*************************************************************/
+        ViewHolder.authorTextView = listItemView.findViewById(R.id.list_item_author);
+        // Find the TextView with view ID date
+        ViewHolder.dateView = (TextView) listItemView.findViewById(R.id.list_item_date);
+        // Get the webTitle of the result and assign to view
+        ViewHolder.webtitleTextView = listItemView.findViewById(R.id.list_item_webtitle);
+        // Get the THUMBNAIL image of the result and assign to view
+        ViewHolder.backgroundImage = listItemView.findViewById(R.id.background_img);
+        // Get the section of the result and assign to view
+        ViewHolder.sectionTextView = listItemView.findViewById(R.id.list_item_section);
+
         // Get the {@link Article} object located at this position in the list
         Article currentArticle = getItem(position);
 
-        // Find the TextView in the list_item.xml layout with the ID version_number
-        TextView authorTextView = listItemView.findViewById(R.id.list_item_author);
+        //AUTHOR NAME INPUT
         //Parse the input into two  variables to display
         String authorName = "";
         if (currentArticle.getauthorSurname() != null && currentArticle.getauthorName() != null) {
             authorName = parseAuthorName(currentArticle.getauthorName(), currentArticle.getauthorSurname());
         } else {
-            authorTextView.setVisibility(View.GONE);
+            ViewHolder.authorTextView.setVisibility(View.GONE);
         }
-
         // Get the version number from the current Article object and set this text on the number TextView
-        authorTextView.setText(authorName);
+        ViewHolder.authorTextView.setText(authorName);
 
-        /* Date and Time in place list item ***********************************/
+        // Date and Time in place list item
         String articleDate = "Published: " + currentArticle.getMyPublishedDataTime().substring(0, 10);
-        ;
-        // Find the TextView with view ID date
-        TextView dateView = (TextView) listItemView.findViewById(R.id.list_item_date);
+
         // Display the date of the current article in that TextView
-        dateView.setText(articleDate);
+        ViewHolder.dateView.setText(articleDate);
 
         // Get the webTitle of the result and assign to view
-        TextView webtitleTextView = listItemView.findViewById(R.id.list_item_webtitle);
         String webTitle = currentArticle.getMyWebTitle();
-        webtitleTextView.setText(webTitle);
+        ViewHolder.webtitleTextView.setText(webTitle);
 
         // Get the THUMBNAIL image of the result and assign to view
-        ImageView backgroundImage = listItemView.findViewById(R.id.background_img);
-        backgroundImage.setImageBitmap(currentArticle.getMyimageUrl());
+        ViewHolder.backgroundImage.setImageBitmap(currentArticle.getMyimageUrl());
 
         // Get the section of the result and assign to view
-        TextView sectionTextView = listItemView.findViewById(R.id.list_item_section);
         String sectionText = " in: " + currentArticle.getarticleSection();
-        sectionTextView.setText(sectionText);
-
+        ViewHolder. sectionTextView.setText(sectionText);
 
         // Return the whole list item layout ***********************************/
         return listItemView;
