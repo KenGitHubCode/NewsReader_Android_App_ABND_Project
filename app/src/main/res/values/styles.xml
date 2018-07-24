@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="list_item_date_time">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">end</item>
+        <item name="android:textColor">@color/textColorArticleDetails</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:gravity">right</item>
+    </style>
+
+    <style name="list_item_section">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">end</item>
+        <item name="android:textColor">@color/textColorArticleDetails</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:gravity">right</item>
+        <item name="android:maxLines">1</item>
+
+    </style>
+
+    <style name="list_header_text_style">
+        <item name="android:ellipsize">end</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/textColorArticleDetails</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="list_item_layout_item">
+        <item name="android:minHeight">?android:attr/listPreferredItemHeight</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:paddingEnd">@dimen/text_padding_dp</item>
+        <item name="android:paddingRight">@dimen/text_padding_dp</item>
+    </style>
+
+    <style name="list_item_layout_top">
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:layout_marginLeft">@dimen/text_padding_dp</item>
+        <item name="android:layout_marginStart">@dimen/text_padding_dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="list_item_webtitle_style">
+        <item name="android:ellipsize">end</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:textColor">@color/textColorArticleLocation</item>
+        <item name="android:textSize">@dimen/text_padding_dp</item>
+    </style>
+
+</resources>
