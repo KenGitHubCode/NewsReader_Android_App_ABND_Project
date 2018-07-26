@@ -151,6 +151,7 @@ public final class QueryUtils {
         String articleURL;
         String publishedDataTime;
         String imageUrl = null;
+        Bitmap myBM;
 
         // Create an empty ArrayList that we can start adding articles to
         ArrayList<Article> articles = new ArrayList<>();
@@ -176,14 +177,18 @@ public final class QueryUtils {
                     articleURL = myJsonObject.getString("webUrl");
                     // Extract section
                     articleSection = myJsonObject.getString("sectionId");
-
                     //Additional information that may not be included:
                     JSONObject fields = myJsonObject.optJSONObject("fields");
 
                     // Pulls image thumbnail from result then calls Bitmap converter
-                    imageUrl = fields.optString("thumbnail");
-                    Log.i(LOG_TAG, "thumbnail: " + imageUrl);
-                    Bitmap myBM = ((BitmapDrawable) LoadImageFromWebOperations(imageUrl)).getBitmap();
+                    try {
+                        imageUrl = fields.optString("thumbnail");  ///PROBLEM
+                        Log.i(LOG_TAG, "thumbnail: " + imageUrl);
+                         myBM = ((BitmapDrawable) LoadImageFromWebOperations(imageUrl)).getBitmap();
+                    } catch (Exception e) {
+                         myBM = null;
+                        Log.e(LOG_TAG, "thumbnail missing or pull failed", e);
+                    }
 
                     JSONArray tags = myJsonObject.optJSONArray("tags");
                     String authorName = null;

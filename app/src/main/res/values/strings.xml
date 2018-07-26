@@ -1,25 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2016 The Android Open Source Project
 
-     Licensed under the Apache License, Version 2.0 (the "License");
-     you may not use this file except in compliance with the License.
-     You may obtain a copy of the License at
-
-          http://www.apache.org/licenses/LICENSE-2.0
-
-     Unless required by applicable law or agreed to in writing, software
-     distributed under the License is distributed on an "AS IS" BASIS,
-     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-     See the License for the specific language governing permissions and
-     limitations under the License.
--->
 <resources>
-    <string name="app_name">AI News Feed</string>
+    <string name="app_name">A.I. News Feed</string>
     <string name="sample_date">Mar 6, 2010</string>
-    <string name="sample_time">3:00 PM</string>
     <string name="sample_long_text">Long placeholder location that should wrap to more than 2 lines of text</string>
-    <string name="sample_title">30km S of</string>
-    <string name="sample_mag">8.9</string>
+    <string name="sample_title">Persons Name </string>
     <string name="no_data_text">No Data to display from the server.</string>
     <string name="no_internet_text">There is no internet connection.</string>
+    <string name="settings_menu_item">Settings</string>
+    <string name="settings_title">Feed Settings</string>
+
+    <string name="settings_catagory_label">Sections</string>
+    <string name="settings_catagory_key" translatable="false">technology_section</string>
+    <string name="settings_catagory_default" translatable="false">@string/settings_catagory_tech_value</string>
+
+    <!-- Label for catagory option [CHAR LIMIT=20] -->
+    <string name="settings_catagory_tech_label">Technology Only Section</string>
+    <string name="settings_catagory_tech_value" translatable="false">technology</string>
+
+    <string name="settings_catagory_else_label" translatable="false">Pop Culture and Other Sections</string>
+    <string name="settings_catagory_else_value" translatable="false">-technology</string>
+
+    <string name="settings_catagory_all_label" translatable="false">All Sections</string>
+    <string name="settings_catagory_all_value" translatable="false">all</string>
+
+    <!-- Strings For Order-By Preference [CHAR LIMIT=30] -->
+    <string name="settings_order_by_label">Order By</string>
+    <string name="settings_order_by_key" translatable="false">order_by</string>
+    <string name="settings_order_by_default" translatable="false">@string/settings_order_by_oldest_value</string>
+
+    <!-- Label for order-by date option [CHAR LIMIT=20] -->
+    <string name="settings_order_by_oldest_label">Oldest</string>
+    <string name="settings_order_by_oldest_value" translatable="false">oldest</string>
+    
+    <!-- Label for order-by most recent option [CHAR LIMIT=20] -->
+    <string name="settings_order_by_most_recent_label">Most Recent</string>
+    <string name="settings_order_by_most_recent_value" translatable="false">newest</string>
 </resources>

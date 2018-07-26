@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Sort using "order by"-->
+    <string-array name="settings_order_by_labels">
+        <item>@string/settings_order_by_oldest_label</item>
+        <item>@string/settings_order_by_most_recent_label</item>
+    </string-array>
+
+    <string-array name="settings_order_by_values">
+        <item>@string/settings_order_by_oldest_value</item>
+        <item>@string/settings_order_by_most_recent_value</item>
+    </string-array>
+
+    <!--Filter using catagory/sections-->
+    <string-array name="settings_catagory_labels">
+        <item>@string/settings_catagory_tech_label</item>
+        <item>@string/settings_catagory_else_label</item>
+        <item>@string/settings_catagory_all_label</item>
+    </string-array>
+
+    <string-array name="settings_catagory_values">
+        <item>@string/settings_catagory_tech_value</item>
+        <item>@string/settings_catagory_else_value</item>
+        <item>@string/settings_catagory_all_value</item>
+    </string-array>
+
+</resources>

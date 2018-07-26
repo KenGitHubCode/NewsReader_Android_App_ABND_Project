@@ -4,12 +4,16 @@ import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -19,7 +23,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity  extends AppCompatActivity
+public class MainActivity extends AppCompatActivity
         implements LoaderManager.LoaderCallbacks<List<Article>> {
 
     /**
@@ -27,11 +31,9 @@ public class MainActivity  extends AppCompatActivity
      */
     //QA LOG_CAT for debugging
     public static final String LOG_TAG = MainActivity.class.getName();
-    //URL for article data from the USGS dataset
-    private static final String USGS_REQUEST_URL =
-            "https://content.guardianapis.com/search?q=ai&show-references=all&show-tags=contributor&show-fields=thumbnail&api-key=77fb4dae-21c2-4f43-9aa6-79b193776bb0";
-    // Create a fake list of article locations.
-    private final ArrayList<Article> articles = new ArrayList<>();
+    //URL for API data from the website
+    private static final String GUARDIANAPIS_REQUEST_URL =
+            "https://content.guardianapis.com/search?";
     // Adapter for the list of articles
     private ArticleAdapter mAdapter;
     // Constant value for the article loader ID. We can choose any integer.
@@ -106,7 +108,39 @@ public class MainActivity  extends AppCompatActivity
     @Override
     public Loader<List<Article>> onCreateLoader(int id, Bundle args) {
         Log.i(LOG_TAG, "onCreateLoader just called.");
-        return new ArticleLoader(this, USGS_REQUEST_URL);
+
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        // getString retrieves a String value from the preferences. The second parameter is the default value for this preference.
+        String myCatagory = sharedPrefs.getString(
+                getString(R.string.settings_catagory_key),
+                getString(R.string.settings_catagory_default));
+
+        String orderBy = sharedPrefs.getString(
+                getString(R.string.settings_order_by_key),
+                getString(R.string.settings_order_by_default)
+        );
+
+        // parse breaks apart the URI string that's passed into its parameter
+        Uri baseUri = Uri.parse(GUARDIANAPIS_REQUEST_URL);
+
+        Uri.Builder uriBuilder = baseUri.buildUpon();
+        uriBuilder.appendQueryParameter("q", "ai");
+
+        // Check if catagory is "all", section is not needed if "all" -meaning no section filter
+        if (!myCatagory.equals("all")) {
+            uriBuilder.appendQueryParameter("section", myCatagory);
+        }
+
+        uriBuilder.appendQueryParameter("order-by", orderBy);
+        uriBuilder.appendQueryParameter("show-references", "all");
+        uriBuilder.appendQueryParameter("show-tags", "contributor");
+        uriBuilder.appendQueryParameter("show-fields", "thumbnail");
+//        uriBuilder.appendQueryParameter("page-size", numberOfNews);
+
+        uriBuilder.appendQueryParameter("api-key", "77fb4dae-21c2-4f43-9aa6-79b193776bb0");
+        Log.i("ArticleActivity", uriBuilder.toString());
+        return new ArticleLoader(this, uriBuilder.toString());
     }
 
     @Override
@@ -130,8 +164,28 @@ public class MainActivity  extends AppCompatActivity
 
     @Override
     public void onLoaderReset(Loader<List<Article>> loader) {
-        Log.e(LOG_TAG, "onLoaderReset just called.");
+        Log.i(LOG_TAG, "onLoaderReset just called.");
         // Clear the adapter of previous article data
         mAdapter.clear();
     }
+
+    @Override
+    // This method initialize the contents of the Activity's options menu.
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the Options Menu we specified in XML
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivity(settingsIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }

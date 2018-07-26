@@ -33,7 +33,6 @@ class ArticleAdapter extends ArrayAdapter<Article> {
 
     /**
      * Provides a view for an AdapterView (ListView, GridView, etc.)
-     *
      * @param position    The position in the list of data that should be displayed in the
      *                    list item view.
      * @param convertView The recycled view to populate.
